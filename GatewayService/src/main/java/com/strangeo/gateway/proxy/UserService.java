@@ -1,9 +1,4 @@
-package com.creactor.user.service;
-
-import org.springframework.security.core.userdetails.UserDetailsService;
-
-import com.creactor.user.entity.User;
-import com.creactor.user.model.SignUpRequest;
+package com.strangeo.gateway.proxy;
 
 /**
  * 
@@ -12,8 +7,6 @@ import com.creactor.user.model.SignUpRequest;
  *
  */
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
 
-	public User registerUser(SignUpRequest signUpRequest);
-	
 }
