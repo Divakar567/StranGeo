@@ -1,9 +1,11 @@
-package com.creactor.user.repo;
+package com.strangeo.user.repo;
+
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.creactor.user.entity.Authority;
+import com.strangeo.user.repo.entity.UserAuthority;
 
-public interface AuthorityRepository extends JpaRepository<Authority, Long> {
-	public Authority findByKey(String key);
+public interface UserAuthorityRepository extends JpaRepository<UserAuthority, Long> {
+	public Set<UserAuthority> findByRole(String role);
 }

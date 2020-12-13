@@ -1,12 +1,14 @@
-package com.creactor.user.repo;
+package com.strangeo.user.repo;
+
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import com.creactor.user.entity.User;
+import com.strangeo.user.repo.entity.UserProfile;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
 
-	UserDetails findByUserName(String username);
+	Optional<UserProfile> findByUserId(Long userId);
 
+	Optional<UserProfile> findByEmail(String email);
 }
