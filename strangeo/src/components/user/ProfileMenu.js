@@ -1,12 +1,16 @@
 import React from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 import Button from '@material-ui/core/Button';
+import { Typography } from '@material-ui/core';
 
-export default function ProfileMenu() {
+export default function ProfileMenu(props) {
+    console.log("ProfileMenu Align: ", props.align);
     const { keycloak, initialized } = useKeycloak();
-    if (!initialized || !keycloak.authenticated) {
-        return (<Button color="inherit" variant="outlined" onClick={() => keycloak.init({ onLoad: "login-required" })}>LogIn</Button>);
-    } else {
-        return (<Button color="inherit" variant="outlined" onClick={() => keycloak.logout()}>LogOut</Button>);
-    }
+    return (<Typography align={props.align} variant="h6">
+        {(!initialized || !keycloak.authenticated) ?
+            <Button color="inherit" variant="outlined" onClick={() => keycloak.init({ onLoad: "login-required" })}>LogIn</Button>
+            :
+            <Button color="inherit" variant="outlined" onClick={() => keycloak.logout()}>LogOut</Button>
+        }
+    </Typography>);
 }

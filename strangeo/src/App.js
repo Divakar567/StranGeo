@@ -1,7 +1,10 @@
 import React from 'react';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './app/auth';
+import { Provider } from 'react-redux';
+import store from './app/store';
 import AppRouter from './app/AppRouter';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const eventLogger = (event, error) => {
   console.log('onKeycloakEvent', event, error)
@@ -20,7 +23,10 @@ function App() {
       }}
       onEvent={eventLogger}
       onTokens={tokenLogger}>
-      <AppRouter />
+      <Provider store={store}>
+        <CssBaseline />
+        <AppRouter />
+      </Provider>
     </ReactKeycloakProvider>
   );
 }

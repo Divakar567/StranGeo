@@ -1,11 +1,61 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import PrivateRoute from '../components/utils/PrivateRoute';
-import Home from '../components/home/Home';
-import SignIn from '../components/user/SignIn';
-import SignUp from '../components/user/SignUp';
-import ProtectedPage from '../components/home/ProtectedPage';
+import SecuredRoute from '../components/utils/SecuredRoute';
+import Home from '../components/home/HomePage';
+import Welcome from '../components/Welcome';
+
+const routes = [
+    {
+        path: "/",
+        exact: true,
+        component: Welcome,
+        isSecured: false,
+        roles: [],
+    },
+    {
+        path: "/home",
+        exact: true,
+        component: Home,
+        isSecured: true,
+        roles: ["USER"],
+    },
+    {
+        path: "/dashboards",
+        exact: true,
+        component: Home,
+        isSecured: true,
+        roles: ["USER"],
+    },
+    {
+        path: "/actionables",
+        exact: true,
+        component: Home,
+        isSecured: true,
+        roles: ["USER"],
+    },
+    {
+        path: "/conversations",
+        exact: true,
+        component: Home,
+        isSecured: true,
+        roles: ["USER"],
+    },
+    {
+        path: "/assets",
+        exact: true,
+        component: Home,
+        isSecured: true,
+        roles: ["USER"],
+    },
+    {
+        path: "/kbases",
+        exact: true,
+        component: Home,
+        isSecured: true,
+        roles: ["USER"],
+    },
+]
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,16 +69,15 @@ const AppRouter = () => {
         <BrowserRouter
             className={classes.root}>
             <Switch>
-                <PrivateRoute path="/protected" roles={["PROTECTED"]} component={ProtectedPage} />
-                <Route path="/signin">
-                    <SignIn />
-                </Route>
-                <Route path="/signup">
-                    <SignUp />
-                </Route>
-                <Route path="/">
-                    <Home />
-                </Route>
+                {
+                    routes.map(
+                        (route, index) => (
+                            route.isSecured ?
+                                <SecuredRoute key={index} exact={route.exact} path={route.path} roles={route.roles} component={route.component} /> :
+                                <Route key={index} exact={route.exact} path={route.path} children={<route.component />} />
+                        )
+                    )
+                }
             </Switch>
         </BrowserRouter>
     )
