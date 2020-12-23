@@ -4,6 +4,6 @@
 
 ## Technologies
 ### Frontend:  
-    MaterialUI, React, React-Redux, Redux, React-Router
+    MaterialUI, React, React-Redux, React-Router, Formik
 ### Backend:   
     Spring, PostgreSQL, Elasticsearch, Kafka, Keycloak
