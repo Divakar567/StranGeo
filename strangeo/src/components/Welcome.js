@@ -1,10 +1,11 @@
 import React from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 import { Typography, Button } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 
-export default function Welcome() {
-    const { keycloak, initialized } = useKeycloak()
+export default function Welcome(props) {
+    console.log("Rendering Welcome...", useLocation());
+    const { keycloak, initialized } = useKeycloak();
 
     const initStatus = (
         <Typography variant="h6">
@@ -25,7 +26,7 @@ export default function Welcome() {
     };
 
     if (keycloak.authenticated) {
-        return (<Redirect to="/home" />);
+        return (<Redirect to={props.pathname || "/home"} />);
     }
 
     return (

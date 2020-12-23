@@ -5,7 +5,7 @@ import AppHeadBar from './AppHeadBar';
 import LeftDrawer from './LeftDrawer';
 import { Container } from '@material-ui/core';
 import { HomeRouter } from '../../app/routes';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Redirect, useLocation, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,14 +28,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home(props) {
+    const history = useHistory();
     const location = useLocation();
     console.log("Rendering home page...", location);
     const classes = useStyles();
     const { keycloak, initialized } = useKeycloak();
+
     if (!initialized || !keycloak.authenticated) {
-        return <Redirect to='/' />;
+
+        return <Redirect to='/' history={history} />;
+        // return <div>Loading...</div>
     }
 
+    console.log("history: ", history);
     return (
         <Container variant="fluid" maxWidth="lg" className={classes.root}>
             <AppHeadBar />

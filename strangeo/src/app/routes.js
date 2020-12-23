@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 import SecuredRoute from '../components/utils/SecuredRoute';
 
 import Welcome from '../components/Welcome';
@@ -17,18 +17,11 @@ const routes = [
         roles: [],
     },
     {
-        path: "/home",
+        path: "/**",
         exact: true,
         component: Home,
         isSecured: true,
         roles: ["USER"],
-    },
-    {
-        path: "/**",
-        exact: true,
-        component: Home,
-        isSecured: false,
-        roles: [],
     },
 ]
 
@@ -69,15 +62,16 @@ const home = [
         roles: ["USER"],
     },
     {
-        path: "/**",
+        path: "",
         exact: true,
         component: Greeting,
-        isSecured: false,
-        roles: [],
+        isSecured: true,
+        roles: ["USER"],
     },
 ]
 
 export default function AppRouter() {
+    console.log("Rendering AppRouter...");
     return (
         <BrowserRouter>
             <Switch>
@@ -96,6 +90,8 @@ export default function AppRouter() {
 }
 
 export function HomeRouter() {
+    let location = useLocation();
+    console.log("Location: ", location);
     return (
         <BrowserRouter>
             <Switch>

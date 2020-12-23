@@ -1,10 +1,13 @@
 import { useKeycloak } from '@react-keycloak/web';
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
+import Welcome from '../Welcome';
 
 
 export default function SecuredRoute({ component: Component, roles, ...rest }) {
+    console.log("Rendering SecuredRoute...");
     const { keycloak } = useKeycloak();
+    const location = useLocation();
 
     const isAutherized = (roles) => {
         if (keycloak && roles) {
@@ -21,9 +24,10 @@ export default function SecuredRoute({ component: Component, roles, ...rest }) {
         <Route
             {...rest}
             render={props => {
-                return isAutherized(roles)
+                console.log("Secured routing...", props);
+                return (isAutherized(roles)
                     ? <Component {...props} />
-                    : <Redirect to={{ pathname: '/', }} />
+                    : <Welcome redirect={location.pathname} />);
             }}
         />
     )

@@ -15,6 +15,7 @@ const tokenLogger = (tokens) => {
 }
 
 function StranGeoApp() {
+  console.log("Rendering StranGeoApp...");
   return (
     <ReactKeycloakProvider
       authClient={keycloak}
