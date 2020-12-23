@@ -16,9 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@SuppressWarnings("unused")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(16);
@@ -46,10 +47,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.addFilter(new JwtAuthenticationFilter(super.authenticationManager(), this.objectMapper))
 				.authorizeRequests()
-					.antMatchers("/api/auth/signin", "/api/auth/signup").permitAll()
-					.anyRequest().authenticated()
+					.antMatchers("/api/auth/signin", "/api/auth/signup", "/authorize", "/token").permitAll()
+					.anyRequest().permitAll()
 				.and()
-				.csrf().disable();
+				.httpBasic();
 	}
 
 	@Bean

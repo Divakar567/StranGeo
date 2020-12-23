@@ -2,7 +2,7 @@ package com.strangeo.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import com.strangeo.user.repo.UserCredentialsRepository;
 import com.strangeo.user.repo.entity.UserCredentials;
 
 @Service
-public class UserAuthServiceImpl implements UserAuthService, UserDetailsService {
+public class UserAuthServiceImpl implements UserAuthService {
 
 	@Autowired
 	private UserService userService;
@@ -30,7 +30,7 @@ public class UserAuthServiceImpl implements UserAuthService, UserDetailsService 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@Override
+//	@Override
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserCredentials credentials = credentialsRepo.findByUsername(username)
 				.orElseGet(() -> credentialsRepo.findByEmail(username)

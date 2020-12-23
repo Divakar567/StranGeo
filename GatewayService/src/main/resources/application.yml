@@ -1,1 +1,1 @@
-spring:  cloud:    gateway:      routes:      - id: user_route        uri: http://localhost:9090        predicates:        - Path=/api/users/**
+server:  port: 8080spring:  application:    name: GATEWAY_SERVICE  cloud:    gateway:      routes:      - id: user_route        uri: http://localhost:9090        predicates:        - Path=/api/users/**

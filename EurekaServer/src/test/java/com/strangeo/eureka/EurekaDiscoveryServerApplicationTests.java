@@ -1,10 +1,10 @@
-package com.strangeo.conversation;
+package com.strangeo.eureka;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ConversationServiceApplicationTests {
+class EurekaDiscoveryServerApplicationTests {
 
 	@Test
 	void contextLoads() {
