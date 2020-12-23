@@ -93,18 +93,18 @@ export function HomeRouter() {
     let location = useLocation();
     console.log("Location: ", location);
     return (
-        <BrowserRouter>
-            <Switch>
-                {
-                    home.map(
-                        (route, index) => (
-                            route.isSecured ?
-                                <SecuredRoute key={index} exact={route.exact} path={route.path} roles={route.roles} component={route.component} /> :
-                                <Route key={index} exact={route.exact} path={route.path} children={<route.component />} />
-                        )
+        // <BrowserRouter>
+        <Switch>
+            {
+                home.map(
+                    (route, index) => (
+                        route.isSecured ?
+                            <SecuredRoute key={index} exact={route.exact} path={route.path} roles={route.roles} component={route.component} /> :
+                            <Route key={index} exact={route.exact} path={route.path} children={<route.component />} />
                     )
-                }
-            </Switch>
-        </BrowserRouter>
+                )
+            }
+        </Switch>
+        // </BrowserRouter>
     )
 }
