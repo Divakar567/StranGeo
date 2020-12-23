@@ -75,7 +75,7 @@ function LeftDrawer(props) {
             <List>
                 <ListItem button key={"Collapse"} onClick={props.drawer ? () => props.drawerClose() : () => props.drawerOpen()}>
                     <ListItemIcon>
-                        {props.display ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        {props.drawer ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </ListItemIcon>
                     <ListItemText primary={"Collapse"} />
                 </ListItem>

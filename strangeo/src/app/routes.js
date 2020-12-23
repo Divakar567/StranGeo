@@ -1,9 +1,12 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import SecuredRoute from '../components/utils/SecuredRoute';
-import Home from '../components/home/HomePage';
+
 import Welcome from '../components/Welcome';
+import DevelopmentPage from '../components/DevelopmentPage';
+import Home from '../components/home/HomePage';
+import Greeting from '../components/home/Greeting';
+import Conversations from '../components/home/conversation/Conversations';
 
 const routes = [
     {
@@ -21,53 +24,62 @@ const routes = [
         roles: ["USER"],
     },
     {
-        path: "/dashboards",
+        path: "/**",
         exact: true,
         component: Home,
+        isSecured: false,
+        roles: [],
+    },
+]
+
+const home = [
+    {
+        path: "/dashboards",
+        exact: true,
+        component: DevelopmentPage,
         isSecured: true,
         roles: ["USER"],
     },
     {
         path: "/actionables",
         exact: true,
-        component: Home,
+        component: DevelopmentPage,
         isSecured: true,
         roles: ["USER"],
     },
     {
         path: "/conversations",
         exact: true,
-        component: Home,
+        component: Conversations,
         isSecured: true,
         roles: ["USER"],
     },
     {
         path: "/assets",
         exact: true,
-        component: Home,
+        component: DevelopmentPage,
         isSecured: true,
         roles: ["USER"],
     },
     {
         path: "/kbases",
         exact: true,
-        component: Home,
+        component: DevelopmentPage,
         isSecured: true,
         roles: ["USER"],
     },
+    {
+        path: "/**",
+        exact: true,
+        component: Greeting,
+        isSecured: false,
+        roles: [],
+    },
 ]
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    }
-}));
-
-const AppRouter = () => {
-    const classes = useStyles();
+export default function AppRouter() {
     return (
-        <BrowserRouter
-            className={classes.root}>
+        <BrowserRouter>
             <Switch>
                 {
                     routes.map(
@@ -83,4 +95,20 @@ const AppRouter = () => {
     )
 }
 
-export default AppRouter;
+export function HomeRouter() {
+    return (
+        <BrowserRouter>
+            <Switch>
+                {
+                    home.map(
+                        (route, index) => (
+                            route.isSecured ?
+                                <SecuredRoute key={index} exact={route.exact} path={route.path} roles={route.roles} component={route.component} /> :
+                                <Route key={index} exact={route.exact} path={route.path} children={<route.component />} />
+                        )
+                    )
+                }
+            </Switch>
+        </BrowserRouter>
+    )
+}

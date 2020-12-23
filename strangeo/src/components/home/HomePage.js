@@ -1,9 +1,11 @@
 import React from 'react';
-import { useKeycloak } from '@react-keycloak/web';
 import { makeStyles } from '@material-ui/core/styles';
+import { useKeycloak } from '@react-keycloak/web';
 import AppHeadBar from './AppHeadBar';
 import LeftDrawer from './LeftDrawer';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
+import { HomeRouter } from '../../app/routes';
+import { Redirect, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,19 +27,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Home() {
-    const { keycloak } = useKeycloak();
+export default function Home(props) {
+    const location = useLocation();
+    console.log("Rendering home page...", location);
     const classes = useStyles();
+    const { keycloak, initialized } = useKeycloak();
+    if (!initialized || !keycloak.authenticated) {
+        return <Redirect to='/' />;
+    }
+
     return (
         <Container variant="fluid" maxWidth="lg" className={classes.root}>
             <AppHeadBar />
             <LeftDrawer />
             <div className={classes.content}>
                 <div className={classes.toolbar} />
-                <Typography variant='h6'>Home Page</Typography>
-                <Typography display='block' variant='body2' component="pre">
-                    <code>{JSON.stringify(keycloak, null, 4)}</code>
-                </Typography>
+                <HomeRouter />
             </div>
         </Container>
     );
