@@ -1,9 +1,9 @@
 package com.strangeo.conversation.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,10 +29,9 @@ public class ConversationServiceImpl implements ConversationService {
 	}
 
 	@Override
-	public List<Conversation> getConversations() {
-		ArrayList<Conversation> conversations = new ArrayList<>();
-		conversationRepo.findAll().forEach(conversation -> conversations.add(conversation));
-		return conversations;
+	public Page<Conversation> getConversations(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return conversationRepo.findAll(pageable);
 	}
 
 }
