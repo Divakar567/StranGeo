@@ -1,4 +1,4 @@
-package com.strangeo.conversation.endpoint;
+package com.strangeo.conversation.controller;
 
 import java.util.List;
 import java.util.concurrent.Executors;

@@ -1,0 +1,36 @@
+server:
+    port: 9091
+
+spring:
+    application:
+        name: ConversationService
+    elasticsearch:
+        rest:
+            uris: localhost:9200
+            username:
+            password:
+            connection-timeout: 5s
+            read-timeout: 60s
+    security:
+        oauth2:
+          resourceserver:
+            jwt:
+              issuer-uri: http://localhost:8180/auth/realms/StranGeoKeyCloak
+            opaquetoken:
+              introspection-uri: http://localhost:8180/auth/realms/StranGeoKeyCloak/protocol/openid-connect/token/introspect
+              client-id: strangeo-spring-app
+              client-secret: 99f18209-e03e-4d3a-8cdf-b19e835aaff3
+    kafka:
+        bootstrap-servers: localhost:9092
+        consumer.group-id: ConversationService
+
+
+
+elasticsearch:
+    index:
+        conversations: sg-conversations
+        messages: sg-conversation-messages
+
+kafka:
+    topic:
+        conversations: sg-conversations

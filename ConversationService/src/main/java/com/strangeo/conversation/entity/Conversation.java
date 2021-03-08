@@ -49,10 +49,10 @@ public class Conversation {
 	@Field(name = "updated_by", type = FieldType.Keyword)
 	private String updatedBy;
 	@CreatedDate
-	@Field(name = "created_date", type = FieldType.Date, format = DateFormat.epoch_millis)
+	@Field(name = "created_date", type = FieldType.Date, format = DateFormat.date_hour_minute_second_millis)
 	private Date createdDate;
 	@LastModifiedDate
-	@Field(name = "updated_date", type = FieldType.Date, format = DateFormat.epoch_millis)
+	@Field(name = "updated_date", type = FieldType.Date, format = DateFormat.date_hour_minute_second_millis)
 	private Date updatedDate;
 	
 	public enum Priority {
