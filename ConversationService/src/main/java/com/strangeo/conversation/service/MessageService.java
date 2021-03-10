@@ -1,9 +1,13 @@
 package com.strangeo.conversation.service;
 
-import com.strangeo.conversation.entity.ConversationMessage;
+import java.util.List;
+
+import com.strangeo.conversation.entity.Message;
 
 public interface MessageService {
 
-	public ConversationMessage postMessage(ConversationMessage message, String conversationId);
+	public Message postMessage(Message message, String conversationId);
+
+	public List<Message> getMessages(String conversationId);
 
 }

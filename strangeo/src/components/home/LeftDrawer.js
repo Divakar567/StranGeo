@@ -17,6 +17,7 @@ import BusinessIcon from '@material-ui/icons/Business';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import { Link } from 'react-router-dom';
 import { drawerOpen, drawerClose } from '../../app/slices/drawerSlice';
+// import { Badge } from '@material-ui/core';
 
 const drawerWidth = 200;
 
@@ -79,7 +80,15 @@ function LeftDrawer(props) {
                     </ListItemIcon>
                     <ListItemText primary={"Collapse"} />
                 </ListItem>
-                <Divider />
+                {/* <Badge 
+                    overlap='circle'
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    badgeContent={props.drawer ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    onClick={props.drawer ? () => props.drawerClose() : () => props.drawerOpen()}
+                >
+                    <Divider />
+                </Badge> */}
+
                 <ListItem button key={"Dashboards"} component={Link} to="/dashboards">
                     <ListItemIcon>
                         <DashboardIcon />

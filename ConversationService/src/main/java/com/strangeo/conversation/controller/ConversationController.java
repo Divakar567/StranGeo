@@ -6,16 +6,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,17 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.strangeo.conversation.entity.Conversation;
+import com.strangeo.conversation.model.ListResponse;
 import com.strangeo.conversation.service.ConversationService;
 
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RequestMapping("/api/conversations")
 public class ConversationController {
 
@@ -66,12 +67,20 @@ public class ConversationController {
 		return new ResponseEntity<Conversation>(conversation, HttpStatus.OK);
 	}
 
+	@Validated
 	@GetMapping
-	public ResponseEntity<Page<Conversation>> getAllConversations(
-			@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = "20") Integer size) {
-		log.info("Conversation page:{}, size:{}", page, size);
-		return new ResponseEntity<Page<Conversation>>(conversationService.getConversations(page, size), HttpStatus.OK);
+	public ResponseEntity<ListResponse<Conversation>> getAllConversations(
+			@Min(0) @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+			@Min(1) @Max(1000) @RequestParam(name = "size", required = false, defaultValue = "20") Integer size) {
+		try {
+			Thread.sleep(2000L);
+			log.info("Conversation page:{}, size:{}", page, size);
+			return new ResponseEntity<ListResponse<Conversation>>(conversationService.getConversations(page, size),
+					HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Excepton while getting conversations: ", e);
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong!");
+		}
 	}
 
 	@KafkaListener(topics = "${kafka.topic.conversations}")

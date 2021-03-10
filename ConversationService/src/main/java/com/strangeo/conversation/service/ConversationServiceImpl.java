@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.strangeo.conversation.entity.Conversation;
+import com.strangeo.conversation.model.ListResponse;
 import com.strangeo.conversation.repo.ConversationRepository;
 
 @Service
@@ -29,9 +30,17 @@ public class ConversationServiceImpl implements ConversationService {
 	}
 
 	@Override
-	public Page<Conversation> getConversations(Integer page, Integer size) {
+	public ListResponse<Conversation> getConversations(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
-		return conversationRepo.findAll(pageable);
+		Page<Conversation> pageRecords = conversationRepo.findAll(pageable);
+		
+		ListResponse<Conversation> convResponse = new ListResponse<>();
+		convResponse.setPage(page);
+		convResponse.setSize(pageRecords.getSize());
+		convResponse.setNumberOfElements(pageRecords.getNumberOfElements());
+		convResponse.setTotalElements(pageRecords.getTotalElements());
+		convResponse.setContent(pageRecords.getContent());
+		return convResponse;
 	}
 
 }

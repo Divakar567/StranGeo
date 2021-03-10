@@ -4,6 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import lombok.Data;
+
+@Data
 public class Entity {
 	@Id
 	private String id;

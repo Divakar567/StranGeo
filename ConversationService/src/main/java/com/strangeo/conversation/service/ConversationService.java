@@ -1,8 +1,7 @@
 package com.strangeo.conversation.service;
 
-import org.springframework.data.domain.Page;
-
 import com.strangeo.conversation.entity.Conversation;
+import com.strangeo.conversation.model.ListResponse;
 
 public interface ConversationService {
 
@@ -10,6 +9,6 @@ public interface ConversationService {
 
 	public Conversation saveConversation(Conversation conversation);
 
-	public Page<Conversation> getConversations(Integer page, Integer size);
+	public ListResponse<Conversation> getConversations(Integer page, Integer size);
 
 }
