@@ -1,5 +1,6 @@
-package com.strangeo.conversation.config;
+package com.strangeo.user.config;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,8 +27,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-public class OAuth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class Oauth2ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
 	private static KeycloakGrantedAuthoritiesConverter grantedAuthoritiesConverter = new KeycloakGrantedAuthoritiesConverter();
 
@@ -43,21 +46,21 @@ public class OAuth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.oauth2ResourceServer(oauth2 -> oauth2.jwt(config -> config.jwtAuthenticationConverter(converter).and()
 						.bearerTokenResolver(bearerTokenResolver)));
 	}
-	
+
 	@Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+	public CorsConfigurationSource corsConfigurationSource() {
 		return new CorsConfigurationSource() {
 			@Override
 			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 				CorsConfiguration config = new CorsConfiguration();
 				config.applyPermitDefaultValues();
-				config.setAllowedOrigins(Collections.unmodifiableList(
-						Collections.singletonList("http://localhost:3000")));
+				config.setAllowedOrigins(
+						Collections.unmodifiableList(Arrays.asList("http://localhost:8080", "http://localhost:3000")));
 				config.setAllowCredentials(true);
 				return config;
 			}
 		};
-    }
+	}
 
 	public static KeycloakGrantedAuthoritiesConverter getGrantedAuthoritiesConverter() {
 		return grantedAuthoritiesConverter;

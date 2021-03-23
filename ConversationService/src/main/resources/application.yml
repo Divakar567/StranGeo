@@ -3,7 +3,7 @@ server:
 
 spring:
     application:
-        name: ConversationService
+        name: CONVERSATION_SERVICE
     elasticsearch:
         rest:
             uris: localhost:9200

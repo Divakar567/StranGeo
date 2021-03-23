@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { generatePath } from "react-router";
 
+export const userServiceBaseURL = "http://localhost:9090/api";
+export const userProfileGetURL = "/users/:userId";
+
 export const convServiceBaseURL = "http://localhost:9091/api";
 export const conversationsGetURL = "/conversations";
 export const conversationPostURL = "/conversations";
 export const conversationGetURL = "/conversations/:conversationId";
-
+export const messagesGetURL = "/conversations/:conversationId/messages";
 export const messagingWSURL = "http://localhost:9091/ws-conversations";
 
-export const messagesGetURL = "/conversations/:conversationId/messages";
 
 export const axiosConfig = {
     baseURL: convServiceBaseURL,
@@ -18,6 +20,18 @@ export const axiosInstance = axios.create(axiosConfig);
 
 export const getAuthorization = (keycloak) => {
     return (keycloak.tokenParsed.typ + " " + keycloak.token);
+}
+
+export function getUserProfile(userId, keycloak) {
+    let config = {
+        baseURL: userServiceBaseURL,
+        url: generatePath(userProfileGetURL, { userId: userId }),
+        method: 'get',
+        headers: {
+            "Authorization": getAuthorization(keycloak),
+        },
+    };
+    return axiosInstance.request(config);
 }
 
 export function getConversation(conversationId, keycloak) {

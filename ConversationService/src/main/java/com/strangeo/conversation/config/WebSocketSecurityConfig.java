@@ -62,7 +62,7 @@ public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
 					String accessToken = authorization.get(0).split(" ")[1];
 					Jwt jwt = jwtDecoder.decode(accessToken);
                     JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-                    converter.setJwtGrantedAuthoritiesConverter(OAuth2WebSecurityConfig.getGrantedAuthoritiesConverter());
+                    converter.setJwtGrantedAuthoritiesConverter(OAuth2ResourceServerConfig.getGrantedAuthoritiesConverter());
                     Authentication authentication = converter.convert(jwt);
                     accessor.setUser(authentication);
 				}

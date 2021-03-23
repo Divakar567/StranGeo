@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, useLocation, useRouteMatch } from 'react-
 import SecuredRoute from '../components/utils/SecuredRoute';
 
 import Welcome from '../components/Welcome';
-import DevelopmentPage from '../components/DevelopmentPage';
+import DevelopmentPage from '../components/utils/DevelopmentPage';
 import Home from '../components/home/Home';
 import Greeting from '../components/home/Greeting';
 import ConversationListView from '../components/home/conversation/ConversationListView';

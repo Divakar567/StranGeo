@@ -1,0 +1,46 @@
+server:
+    port: 9090
+
+spring:
+    application:
+        name: USER_SERVICE
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+        password: root
+        hikari:
+            maximum-pool-size: 50
+            allow-pool-suspension: true
+            minimum-idle: 10
+            leak-detection-threshold: 90000
+            connection-timeout: 120000
+            idle-timeout: 1200000
+            validation-timeout: 10000
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate.ddl-auto: update
+        open-in-view: false
+        show-sql: true
+        properties:
+            hibernate:
+                '[default-schema]': public
+                '[format_sql]': true
+    security:
+        oauth2:
+          resourceserver:
+            jwt:
+              issuer-uri: http://localhost:8180/auth/realms/StranGeoKeyCloak
+            opaquetoken:
+              introspection-uri: http://localhost:8180/auth/realms/StranGeoKeyCloak/protocol/openid-connect/token/introspect
+              client-id: strangeo-spring-app
+              client-secret: 99f18209-e03e-4d3a-8cdf-b19e835aaff3
+    cache:
+      type: redis
+    redis:
+        database: 0
+        host: localhost
+        port: 6379
+        password: pass
+        timeout: 60000
+

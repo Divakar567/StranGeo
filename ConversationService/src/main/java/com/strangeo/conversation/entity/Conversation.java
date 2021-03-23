@@ -50,10 +50,10 @@ public class Conversation {
 	private String updatedBy;
 	@CreatedDate
 	@Field(name = "created_date", type = FieldType.Date, format = DateFormat.epoch_millis)
-	private Date createdDate = new Date();
+	private Date createdDate;
 	@LastModifiedDate
 	@Field(name = "updated_date", type = FieldType.Date, format = DateFormat.epoch_millis)
-	private Date updatedDate = new Date();
+	private Date updatedDate;
 	
 	public enum Priority {
 		Critical, High, Medium, Low, None

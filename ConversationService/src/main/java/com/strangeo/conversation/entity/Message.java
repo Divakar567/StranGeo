@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,14 +30,15 @@ public class Message {
 	@Field(name = "conversation_id", type = FieldType.Keyword)
 	private String conversationId;
 	@NotBlank
+	@CreatedBy
 	@Field(name = "sent_by", type = FieldType.Keyword)
 	private String sentBy;
 	@CreatedDate
-	@Field(name = "created_date", type = FieldType.Date, format = DateFormat.date_hour_minute_second_millis)
-	private Date createdDate = new Date();
+	@Field(name = "created_date", type = FieldType.Date, format = DateFormat.epoch_millis)
+	private Date createdDate;
 	@LastModifiedDate
-	@Field(name = "updated_date", type = FieldType.Date, format = DateFormat.date_hour_minute_second_millis)
-	private Date updatedDate = new Date();
+	@Field(name = "updated_date", type = FieldType.Date, format = DateFormat.epoch_millis)
+	private Date updatedDate;
 	
 	public enum Type {
 		TEXT, MEDIA, EVENT

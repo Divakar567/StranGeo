@@ -1,11 +1,11 @@
 package com.strangeo.user.service;
 
-import com.strangeo.user.model.User;
+import com.strangeo.user.repo.entity.UserProfile;
 
 public interface UserService {
 
-	public User getUser(Long userId);
+	public UserProfile saveUserInfo(UserProfile userInfo);
 
-	public User saveUser(User user);
+	public UserProfile getUserInfo(String userId);
 
 }
