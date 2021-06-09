@@ -24,7 +24,6 @@ export default function SecuredRoute({ component: Component, roles, ...rest }) {
         <Route
             {...rest}
             render={props => {
-                console.log("Secured routing...", props);
                 return (isAutherized(roles)
                     ? <Component {...props} />
                     : <Welcome redirect={location.pathname} />);

@@ -11,7 +11,7 @@
 	<groupId>com.strangeo</groupId>
 	<artifactId>EurekaServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>EurekaDiscoveryServer</name>
+	<name>EurekaService</name>
 	<description>Strangeo services discovery server with Netflix Eureka</description>
 
 	<properties>
